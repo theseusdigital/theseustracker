@@ -149,4 +149,17 @@
   function pluralize($number){
     return ($number>1 || $number==0)?'s':'';
   }
+
+  function getDays($since, $until){
+    $daydiff = 60*60*24;
+    $sincetime = strtotime($since);
+    $untiltime = strtotime($until);
+    $days = array();
+    while($sincetime <= $untiltime){
+        $day = date("d M",$sincetime);
+        array_push($days, $day);
+        $sincetime += $daydiff;
+    }
+    return $days;
+  }
 ?>

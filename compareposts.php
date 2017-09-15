@@ -144,6 +144,7 @@ session_start();
                     <li><a href="comparebrands.php">Compare Brands</a></li>
                     <li><a href="socialwall">Social Wall</a></li>
                     <li><a href="moderateposts.php">Moderate Posts</a></li>
+                    <li><a href="charts">View Charts</a></li>
                 </ul>
             </div>
             <a class="logoutlink" href="home.php?logout=1">Logout</a>  
