@@ -36,7 +36,7 @@
 </div>
 <div class="date">
     Choose Brands: 
-        <input type="text" id="brand" placeholder=" Choose Brands" ng-model="selbrands" ng-change="changeBrands(selbrands)" size="60">
+        <input type="text" id="brand" placeholder=" Choose Brands" ng-model="selbrands" size="60">
         <!-- <select id="selectedbrand" class="select" style='width:150px;'>
             <option value=""> </option>
             <?php
