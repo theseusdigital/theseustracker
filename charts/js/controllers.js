@@ -64,6 +64,7 @@ chartControllers.controller("chartCtrl",
   function($scope, $rootScope, $http, $interval, $state, inputData, chartData) {
 
     $rootScope.initData = function(){
+      $scope.inputerror = "";
       inputData.ready().then(function(res){
         $scope.inputdata = res['inputdata'];
         console.log($scope.inputdata);
@@ -77,8 +78,15 @@ chartControllers.controller("chartCtrl",
         $scope.brand_map = $scope.inputdata['brand_map'];
         $scope.brandhandlemap = $scope.inputdata['brandhandlemap'];
         $scope.selmetric = $scope.inputdata['selmetric'];
+        $scope.refresh = $scope.inputdata['refresh'];
         $scope.initSelectboxes();
-        $scope.initCharts();
+        if($scope.refresh){
+          $scope.generate();
+        }
+        else{
+          $scope.initCharts();
+        }
+        
       });
     };
 
@@ -89,46 +97,68 @@ chartControllers.controller("chartCtrl",
     };
 
     $scope.generate = function(){
-      inputs = {
-                since:$scope.since, 
-                until:$scope.until,
-                selbrands:$scope.selbrands,
-                selplatformid:$scope.selplatformid,
-                selplatform:$scope.selplatform,
-                selmetric:$scope.selmetric,
-                dbmetric:$scope.inputdata['metric_map'][$scope.selplatform][$scope.selmetric],
-                selhandles:$scope.selhandles
-            };
+      if($scope.selbrands != ""){
+        $scope.selhandles = $scope.updateHandles();
+        if($scope.selhandles.length > 0){
+          if ($scope.selplatform in $scope.inputdata['metric_map']){
+            if ($scope.selmetric in $scope.inputdata['metric_map'][$scope.selplatform]){
+              inputs = {
+                    since:$scope.since, 
+                    until:$scope.until,
+                    selbrands:$scope.selbrands,
+                    selplatformid:$scope.selplatformid,
+                    selplatform:$scope.selplatform,
+                    selmetric:$scope.selmetric,
+                    dbmetric:$scope.inputdata['metric_map'][$scope.selplatform][$scope.selmetric],
+                    selhandles:$scope.selhandles
+                };
 
-      $.ajax({
-              type:"POST",
-              url:"./chartdata.php",
-              data:{inputdata:inputs},
-              success:function(data){ 
-                  chartData.refresh();
-                  $scope.initCharts();
-                  console.log(data);
-              }
-          });
-      /*$http({
-              method : "POST",
-              url : "./chartdata.php",
-              data: {branddata:branddata},
-              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-          })
-          .then(function(response) {
-              if(!response.data['expired']){
-                chartData.refresh();
-                $scope.initCharts();
-                console.log(response.data);
-              }
-              else{
-                window.location.href = "../index.php?logout=1";
-              }
-          }, function(response) {
-              
-          });*/
+              $.ajax({
+                      type:"POST",
+                      url:"./chartdata.php",
+                      data:{inputdata:inputs},
+                      success:function(data){ 
+                          chartData.refresh();
+                          $scope.initCharts();
+                          //console.log(data);
+                      }
+                  });
+              /*$http({
+                      method : "POST",
+                      url : "./chartdata.php",
+                      data: {branddata:branddata},
+                      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                  })
+                  .then(function(response) {
+                      if(!response.data['expired']){
+                        chartData.refresh();
+                        $scope.initCharts();
+                        console.log(response.data);
+                      }
+                      else{
+                        window.location.href = "../index.php?logout=1";
+                      }
+                  }, function(response) {
+                      
+                  });*/
+            }
+            else{
+              $scope.inputerror = "Select Metric";
+            }
+          }
+          else{
+            $scope.inputerror = "Select Platform";
+          }
+        }
+        else{
+          $scope.inputerror = "No Handles Selected";
+        }
+      }
+      else{
+        $scope.inputerror = "Select Atleast 1 Brand";
+      }
     };
+
     $scope.initSelectboxes = function(){
       $("#platform")
         // don't navigate away from the field on tab when selecting an item
@@ -160,6 +190,7 @@ chartControllers.controller("chartCtrl",
             $scope.selmetric = $scope.inputdata['metric_map'][$scope.selplatform]['metrics'][0];
             $("#metric").val($scope.selmetric);
             $scope.selhandles = $scope.updateHandles();
+            $scope.inputerror = "";
             return false;
           }
         });
@@ -184,7 +215,6 @@ chartControllers.controller("chartCtrl",
             return false;
           },
           change: function( event, ui ) {
-            $scope.selbrands = this.value;
             // prevent value inserted on change
             return false;
           },
@@ -199,7 +229,7 @@ chartControllers.controller("chartCtrl",
             this.value = terms.join(",");
             $scope.selbrands = this.value;
             $scope.selhandles = $scope.updateHandles();
-            $("#branderror").hide();
+            $scope.inputerror = "";
             console.log($scope.selhandles);
             return false;
           }
@@ -225,7 +255,6 @@ chartControllers.controller("chartCtrl",
             return false;
           },
           change: function( event, ui ) {
-            metric = this.value;
             // prevent value inserted on change
             return false;
           },
@@ -234,6 +263,7 @@ chartControllers.controller("chartCtrl",
             $scope.selmetric = this.value;
             dbmetric = $scope.inputdata['metric_map'][$scope.selplatform][$scope.selmetric];
             console.log(dbmetric);
+            $scope.inputerror = "";
             return false;
           }
         });

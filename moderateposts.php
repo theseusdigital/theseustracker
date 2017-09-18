@@ -103,7 +103,7 @@ session_start();
     <div id="topbar">
         <div class="toplinks" align="right"></div> <br /><br />
         <div class="report-heading">
-            <h1>Social <font color="#009999">Tracker</font></h1>
+            <h1>Theseus <font color="#009999">Tracker</font></h1>
             <!-- <h1> <img src="images/logo-404-big.png" alt="" style="vertical-align:bottom" /> Social Tracker</h1> -->
         </div>
         <!--<div class="client-logo" align="center"><img src="images/logo-kxip.png" alt=""  /></div>-->

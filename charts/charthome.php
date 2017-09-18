@@ -3,7 +3,7 @@
     <div id="topbar">
         <div class="toplinks" align="right"></div> <br /><br />
         <div class="report-heading">
-          <h1>Social <font color="#009999">Tracker</font></h1>
+          <h1>Theseus <font color="#009999">Tracker</font></h1>
           <!-- <h1> <img src="images/logo-404-big.png" alt="" style="vertical-align:bottom" /> Social Tracker</h1> -->
         </div>
         <!--<div class="client-logo" align="center"><img src="images/logo-kxip.png" alt=""  /></div>-->
@@ -48,7 +48,7 @@
     &nbsp;
     Platform: 
         <input type="text" id="platform" placeholder=" Choose Platform" ng-model="selplatform">
-        &nbsp; <b id="branderror" style="display:none;">Choose Brand</b>
+        &nbsp; <b id="branderror">{{ inputerror }}</b>
      <br/> <br/>       
     <label>Date from:</label> <input type='text' name='since' id='datepicker' ng-model="since" style='width:100;' />  &nbsp; &nbsp; &nbsp;
     <label>Date to:</label> <input type='text' name='until' id='datepicker2' ng-model="until" /> &nbsp; &nbsp; &nbsp;
@@ -67,8 +67,8 @@
 
 <div id="tabs">
   <ul>
-    <li><a href="#tabs-1">Column</a></li>
-    <li><a href="#tabs-2">Line</a></li>
+    <li><a href="#tabs-1">Total</a></li>
+    <li><a href="#tabs-2">Daywise</a></li>
   </ul>
   <div id="tabs-1">
     <hc-chart options="alldata['column']">Placeholder for generic chart</hc-chart>

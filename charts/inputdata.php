@@ -34,15 +34,17 @@ session_start();
         $inputdata['selbrands'] = $_SESSION['inputdata']['selbrands'];
         $inputdata['selhandles'] = $_SESSION['inputdata']['selhandles'];
         $inputdata['selmetric'] = $_SESSION['inputdata']['selmetric'];
+        $inputdata['refresh'] = False;
     }
     else{
     	$inputdata['since'] = $since;
         $inputdata['until'] = $until;
         $inputdata['selplatform'] = "facebook";
         $inputdata['selplatformid'] = 1;
-        $inputdata['selbrands'] = "";
+        $inputdata['selbrands'] = "History TV18,National Geographic,Colors";
         $inputdata['selhandles'] = array();
         $inputdata['selmetric'] = "Page Likes";
+        $inputdata['refresh'] = True;
     }
 
     $handlemapquery = "select th.id,th.name,th.uniqueid,th.platform_id,bh.brand_id from tracker_handle th inner join tracker_brand_handle bh on th.id=bh.handle_id order by th.id";
