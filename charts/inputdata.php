@@ -41,7 +41,7 @@ session_start();
         $inputdata['until'] = $until;
         $inputdata['selplatform'] = "facebook";
         $inputdata['selplatformid'] = 1;
-        $inputdata['selbrands'] = "History TV18,National Geographic,Colors";
+        $inputdata['selbrands'] = "History TV18,National Geographic,Colors,Star Plus,";
         $inputdata['selhandles'] = array();
         $inputdata['selmetric'] = "Page Likes";
         $inputdata['refresh'] = True;
