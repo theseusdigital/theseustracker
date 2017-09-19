@@ -2,12 +2,23 @@ var chartServices = angular.module('chartServices', []);
 
 chartServices.service('BrandChart', function() {
   this.sm_line = function(data) {
+        imgname = data['title'].split(" ");
+        imgname = imgname.join("_");
         options = {
             chart: {
                 type: 'spline',
                 style: {
                         fontFamily: 'Verdana, sans-serif'
                     }
+            },
+            exporting: {
+              sourceWidth: 800,
+              sourceHeight: 400,
+              filename: imgname+"_Daywise",
+              // scale: 2 (default)
+              /*chartOptions: {
+                  subtitle: null
+              }*/
             },
             credits: {
                 enabled: false
@@ -57,12 +68,23 @@ chartServices.service('BrandChart', function() {
     };
 
     this.sm_column = function(data) {
+        imgname = data['title'].split(" ");
+        imgname = imgname.join("_");
         options = {
           chart: {
             type: 'column',
             style: {
                     fontFamily: 'Verdana, sans-serif'
                   }
+          },
+          exporting: {
+              sourceWidth: 800,
+              sourceHeight: 400,
+              filename: imgname+"_Total",
+              // scale: 2 (default)
+              /*chartOptions: {
+                  subtitle: null
+              }*/
           },
           credits: {
                 enabled: false
