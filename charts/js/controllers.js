@@ -123,21 +123,17 @@ chartControllers.controller("chartCtrl",
                           //console.log(data);
                       }
                   });
+
               /*$http({
                       method : "POST",
                       url : "./chartdata.php",
-                      data: {branddata:branddata},
+                      data: $.param({inputdata:inputs}),
                       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                   })
                   .then(function(response) {
-                      if(!response.data['expired']){
-                        chartData.refresh();
-                        $scope.initCharts();
-                        console.log(response.data);
-                      }
-                      else{
-                        window.location.href = "../index.php?logout=1";
-                      }
+                      chartData.refresh();
+                      $scope.initCharts();
+                      console.log(response.data);
                   }, function(response) {
                       
                   });*/
