@@ -40,7 +40,7 @@
 <title>Social Tracker</title>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
   <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="http://sscol.jebal.comuv.com/css/font.css">
+  <!-- <link rel="stylesheet" href="http://sscol.jebal.comuv.com/css/font.css"> -->
   
   <style>
   body{
