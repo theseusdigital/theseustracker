@@ -146,7 +146,7 @@ session_start();
     <label>Date to:</label> <input type='text' name='until' id='datepicker2' value="<?php if(isset($_SESSION['until'])){ echo $_SESSION['until']; }?>"  /> &nbsp; &nbsp; &nbsp;
     <input type="button" value="Generate" name="generate" onclick="Generate()" id="generate"/> 
     &nbsp;
-    <!-- <input type="button" value="Download .CSV" name="csv" onclick="CSV()" />&nbsp; &nbsp; -->
+    <input type="button" value="Download CSV" name="csv" onclick="CSV()" id="csv"/> &nbsp; &nbsp;
     &nbsp;<img id="loader" style="display:none;" src="images/loader.gif" width="15" height="15">
     &nbsp; <b id="hashtagerror" style="display:none;">Choose Hashtag</b>
 </div>
@@ -159,10 +159,10 @@ session_start();
             <div>
                 <br/>
                 Hashtag: 
-                <input type="text" id="hashtagpicker" class="inputboxes" placeholder=" Choose Hashtag" value="<?php if(isset($_SESSION['hashtagname'])){ echo $_SESSION['hashtagname']; }?>">
+                #<input type="text" id="hashtagpicker" class="inputboxes" placeholder=" Choose Hashtag" value="<?php if(isset($_SESSION['hashtagname'])){ echo $_SESSION['hashtagname']; }?>">
                 &nbsp;
                 Handle: 
-                <input type="text" id="handlename" class="inputboxes" placeholder=" Handle" value="<?php if(isset($_SESSION['handlename'])){ echo $_SESSION['handlename']; }?>">
+                @<input type="text" id="handlename" class="inputboxes" placeholder=" Handle" value="<?php if(isset($_SESSION['handlename'])){ echo $_SESSION['handlename']; }?>">
                 &nbsp;
                 <select name="platform" id="platforms">
                   <option id="1">Facebook</option>
@@ -322,8 +322,31 @@ function gotoPage(pagelink){
 }
 
 function CSV(){
-
+    sincedate = $('#datepicker').val();
+    untildate = $('#datepicker2').val();
+    if(hashtag_name != ""){
+        hashtagdata = {
+                    since:sincedate, 
+                    until:untildate,
+                    hashtagname:hashtag_name,
+                    handlename:handlename,
+                    platformid:platformid,
+                    platformname:platformname
+                };
+        $.ajax({
+                type:"POST",
+                url:"hashtagscsv.php",
+                data:{hashtagdata:hashtagdata},
+                success:function(data){ 
+                    gotoPage('hashtagscsv.php');
+                }
+            });
+    }
+    else{
+        $("#hashtagerror").show();
+    }
 }
+
 split = function(val) {
   return val.split( /,\s*/ );
 };
