@@ -45,7 +45,10 @@ else{
   		$facebooknumbers = mysql_query($facebookquery);
   		$fbhandles = mysql_numrows($facebooknumbers);
 
-  		$twitterquery = "select h.name,count(ht.tweet_id) as tweets from tracker_handletweet ht inner join tracker_handle h on ht.handle_id = h.id where ht.entities_hashtags like '%$hashtagname%'and ht.created_at >= '$since 00:00:00' and ht.created_at <= '$until 23:59:59' group by h.name order by tweets desc";
+  		$twitterquery = "select h.name,count(ht.tweet_id) as tweets from tracker_handletweet ht
+  						 inner join tracker_handle h on ht.handle_id = h.id where ht.text not like 'RT %'
+  						  and ht.entities_hashtags like '%$hashtagname%' and ht.created_at >= '$since 00:00:00'
+  						   and ht.created_at <= '$until 23:59:59' group by h.name order by tweets desc";
   		$twitternumbers = mysql_query($twitterquery);
   		$twhandles = mysql_numrows($twitternumbers);
 

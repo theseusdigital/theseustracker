@@ -34,7 +34,10 @@
 	  		$facebooknumbers = mysql_query($facebookquery);
 	  		$fbhandles = mysql_numrows($facebooknumbers);
 
-	  		$twitterquery = "select h.name,count(ht.tweet_id) as tweets from tracker_handletweet ht inner join tracker_handle h on ht.handle_id = h.id where ht.entities_hashtags like '%$hashtagname%'and ht.created_at >= '$since 00:00:00' and ht.created_at <= '$until 23:59:59' group by h.name order by tweets desc";
+	  		$twitterquery = "select h.name,count(ht.tweet_id) as tweets from tracker_handletweet ht
+							 inner join tracker_handle h on ht.handle_id = h.id where ht.text not like 'RT %'
+							 and ht.entities_hashtags like '%$hashtagname%'and ht.created_at >= '$since 00:00:00'
+							 and ht.created_at <= '$until 23:59:59' group by h.name order by tweets desc";
 	  		$twitternumbers = mysql_query($twitterquery);
 	  		$twhandles = mysql_numrows($twitternumbers);
 
@@ -166,7 +169,11 @@
 	  		else{
 
 	  			$tweeturl = "https://twitter.com/#handle#/status/#tweetid#";
-	  			$query = "select ht.id,ht.tweet_id,ht.text,ht.favorite_count,ht.retweet_count,ht.entities_media,ht.created_at,hu.profile_image_url,hu.screen_name from tracker_handletweet ht inner join tracker_twitteruser hu on ht.user_id=hu.user_id where hu.screen_name = '$handlename' and ht.entities_hashtags like '%$hashtagname%' and ht.created_at >= '$since 00:00:00' and ht.created_at <= '$until 23:59:59' order by ht.created_at desc limit 3";
+	  			$query = "select ht.id,ht.tweet_id,ht.text,ht.favorite_count,ht.retweet_count,ht.entities_media,ht.created_at,hu.profile_image_url,hu.screen_name
+	  					 from tracker_handletweet ht inner join tracker_twitteruser hu on ht.user_id=hu.user_id
+	  					  where ht.text not like 'RT %' and hu.screen_name = '$handlename'
+	  					   and ht.entities_hashtags like '%$hashtagname%' and ht.created_at >= '$since 00:00:00'
+	  					    and ht.created_at <= '$until 23:59:59' order by ht.created_at desc limit 3";
 			    $result = mysql_query($query);
 			    $pagerecords = mysql_numrows($result);
 			    if($pagerecords > 0){

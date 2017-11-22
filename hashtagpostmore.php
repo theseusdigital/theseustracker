@@ -79,7 +79,10 @@
 	    if($platformid == 2){
 		    	// Twitter Posts
 		    	$tweeturl = "https://twitter.com/#handle#/status/#tweetid#";
-		  		$query = "select ht.id,ht.tweet_id,ht.text,ht.favorite_count,ht.retweet_count,ht.entities_media,ht.created_at,hu.profile_image_url,hu.screen_name from tracker_handletweet ht inner join tracker_twitteruser hu on ht.user_id=hu.user_id where hu.screen_name = '$handlename' and ht.entities_hashtags like '%$hashtagname%' and ht.created_at >= '$sincetime' and ht.created_at < '$untiltime' order by ht.created_at desc limit 3";
+		  		$query = "select ht.id,ht.tweet_id,ht.text,ht.favorite_count,ht.retweet_count,ht.entities_media,ht.created_at,hu.profile_image_url,hu.screen_name
+		  				 from tracker_handletweet ht inner join tracker_twitteruser hu on ht.user_id=hu.user_id
+		  				  where ht.text not like 'RT %' and hu.screen_name = '$handlename' and ht.entities_hashtags like '%$hashtagname%'
+		  				   and ht.created_at >= '$sincetime' and ht.created_at < '$untiltime' order by ht.created_at desc limit 3";
 			    $result = mysql_query($query);
 			    $pagerecords = mysql_numrows($result);
 			    if($pagerecords > 0){
