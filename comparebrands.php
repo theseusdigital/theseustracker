@@ -87,6 +87,7 @@ session_start();
                 <ul>
                     <li><a href="home.php">Home</a></li>
                     <li><a href="compareposts.php">Compare Posts</a></li>
+                    <li><a href="hashtags.php">Hashtags</a></li>
                     <li><a href="socialwall">Social Wall</a></li>
                     <li><a href="moderateposts.php">Moderate Posts</a></li>
                     <li><a href="charts">View Charts</a></li>

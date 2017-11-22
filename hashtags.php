@@ -124,7 +124,7 @@ session_start();
     </div><!-- <br /><br /> -->
 
 <div class="pagebuttons">
-    <b>Moderate Posts</b>
+    <b>Hashtags</b>
     <div class="menuwrap">
         <span class="menuarea">
             <a class="menu" href="#">Menu</a>
