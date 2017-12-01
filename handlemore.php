@@ -222,7 +222,7 @@
 
 		if($platformid == 4){
 	    	// Facebook Posts
-	  		$query = "select postid,caption,likes,comments,postimg,url,published from tracker_instagramhandlepost where handle_id = '$handleid' and published >= '$sincetime' and published < '$untiltime' and caption like '%$searchvalue%' order by published desc limit 3";
+	  		$query = "select postid,caption,likes,comments,views,postimg,url,published,posttype from tracker_instagramhandlepost where handle_id = '$handleid' and published >= '$sincetime' and published < '$untiltime' and caption like '%$searchvalue%' order by published desc limit 3";
 		    $result = mysql_query($query);
 		    $pagerecords = mysql_numrows($result);
 		    if($pagerecords > 0){
@@ -252,7 +252,11 @@
 		          				<td>
 		          					<div class='postnumbers'>
 					          			<?php
-					          				echo number_format($row['likes'])." Likes | ".number_format($row['comments'])." Comments";
+					          				$ignumbers = number_format($row['likes'])." Likes | ".number_format($row['comments'])." Comments";
+					          				if($row['posttype'] == "video"){
+					          					$ignumbers = number_format($row['views'])." Views | ".$ignumbers;
+					          				}
+					          				echo $ignumbers;
 					          			?> 
 					          		</div>
 		          				</td>

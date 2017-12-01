@@ -194,6 +194,7 @@
 						<td class='heading'>Posts</td>
 						<td class='heading'>Likes</td>
 						<td class='heading'>Comments</td>
+						<td class='heading'>Views</td>
 		            </tr> 
 			      <?php
 			        while($row = mysql_fetch_array($result)) {
@@ -204,6 +205,7 @@
 			          echo "<td>".number_format($row['posts'])."</td>";
 			          echo "<td>".number_format($row['likes'])."</td>";
 			          echo "<td>".number_format($row['comments'])."</td>";
+			          echo "<td>".number_format($row['views'])."</td>";
 			          echo "</tr>";
 			        } 
 			      ?>

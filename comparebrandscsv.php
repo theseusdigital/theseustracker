@@ -35,7 +35,7 @@
 	    	$fbmetrics = array("Page Likes","New Page Likes","Posts","Post Likes","Comments","Shares");
 	    	$twmetrics = array("Followers","New Followers","Tweets","Retweets","Favorites");
 	    	$ytmetrics = array("Subscribers","New Subscribers","New Views","Videos","Likes","Dislikes","Comments");
-	    	$igmetrics = array("Followers","New Followers","Posts","Likes","Comments");
+	    	$igmetrics = array("Followers","New Followers","Posts","Likes","Comments","Views");
 	    	$platform_map = array("facebook"=>$fbmetrics,"twitter"=>$twmetrics,
 	    							"youtube"=>$ytmetrics,"instagram"=>$igmetrics);
 	    	$csvdata = array();
@@ -235,7 +235,7 @@
 				    		$result = mysql_query($alltimequery);
 				    		$alltimerow = mysql_fetch_array($result);
 
-				    		$query = "select sum(newfollowers) as newfollowers,sum(posts) as posts,sum(likes) as likes,sum(comments) as comments from tracker_socialmediainstagram where handle_id = '$instagram_handle' and reportdate between '$sinceday' and '$untilday'";
+				    		$query = "select sum(newfollowers) as newfollowers,sum(posts) as posts,sum(likes) as likes,sum(comments) as comments,sum(views) as views from tracker_socialmediainstagram where handle_id = '$instagram_handle' and reportdate between '$sinceday' and '$untilday'";
 						    $result = mysql_query($query);
 						    $pagerecords = mysql_numrows($result);
 						    $row = mysql_fetch_array($result);
@@ -251,6 +251,7 @@
 				    	$growthdata["postspc"] = getGrowthCSV($nowrow['posts'],$pastrow['posts']);
 				    	$growthdata["likespc"] = getGrowthCSV($nowrow['likes'],$pastrow['likes']);
 				    	$growthdata["commentspc"] = getGrowthCSV($nowrow['comments'],$pastrow['comments']);
+				    	$growthdata["viewspc"] = getGrowthCSV($nowrow['views'],$pastrow['views']);
 
 				    	array_push($csvdata[$csvplatform]['titles'], array("Instagram ".$instagramhandle['name'],"",""));
 				    	array_push($csvdata[$csvplatform]['metrics'], array("Metric","Score","Percentage Change %"));
@@ -259,6 +260,7 @@
 				    	array_push($csvdata[$csvplatform]['numbers']["Posts"], array("Posts",$nowrow['posts'],$growthdata["postspc"]));
 				    	array_push($csvdata[$csvplatform]['numbers']["Likes"], array("Likes",$nowrow['likes'],$growthdata["likespc"]));
 				    	array_push($csvdata[$csvplatform]['numbers']["Comments"], array("Comments",$nowrow['comments'],$growthdata["commentspc"]));
+				    	array_push($csvdata[$csvplatform]['numbers']["Views"], array("Views",$nowrow['views'],$growthdata["viewspc"]));
 
 				    }
 			    }

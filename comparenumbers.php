@@ -276,7 +276,7 @@
 			    		$result = mysql_query($alltimequery);
 			    		$alltimerow = mysql_fetch_array($result);
 
-			    		$query = "select sum(newfollowers) as newfollowers,sum(posts) as posts,sum(likes) as likes,sum(comments) as comments from tracker_socialmediainstagram where handle_id = '$instagram_handle' and reportdate between '$sinceday' and '$untilday'";
+			    		$query = "select sum(newfollowers) as newfollowers,sum(posts) as posts,sum(likes) as likes,sum(comments) as comments,sum(views) as views from tracker_socialmediainstagram where handle_id = '$instagram_handle' and reportdate between '$sinceday' and '$untilday'";
 					    $result = mysql_query($query);
 					    $pagerecords = mysql_numrows($result);
 					    $row = mysql_fetch_array($result);
@@ -292,6 +292,7 @@
 			    	$growthdata["postspc"] = getGrowth($nowrow['posts'],$pastrow['posts']);
 			    	$growthdata["likespc"] = getGrowth($nowrow['likes'],$pastrow['likes']);
 			    	$growthdata["commentspc"] = getGrowth($nowrow['comments'],$pastrow['comments']);
+			    	$growthdata["viewspc"] = getGrowth($nowrow['views'],$pastrow['views']);
 			      ?>
 			      <div class='handletitle' width='25%'><h5>INSTAGRAM <?php echo $instagramhandle['name']; ?></h5></div>
 			      <table width='100%' border='0' cellpadding='0' cellspacing='1' class='data-table'>
@@ -319,6 +320,11 @@
 		                <td class='heading'>Comments</td>
 		                <td><?php echo number_format($nowrow['comments']); ?></td>
 		                <td><?php echo $growthdata["commentspc"]; ?></td>
+		            </tr>
+		            <tr>
+		                <td class='heading'>Views</td>
+		                <td><?php echo number_format($nowrow['views']); ?></td>
+		                <td><?php echo $growthdata["viewspc"]; ?></td>
 		            </tr>
 			      </table>
 			      <!-- <br>

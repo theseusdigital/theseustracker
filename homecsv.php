@@ -173,9 +173,9 @@ session_start();
                 if($pagerecords > 0)
                 {
                     fputcsv($out, array("Instagram ".$instagramhandle['name']));
-                    fputcsv($out, explode(",","Date,Followers,New Followers,Posts,Likes,Comments"));
+                    fputcsv($out, explode(",","Date,Followers,New Followers,Posts,Likes,Comments,Views"));
                     $igmetrics = array("reportdate","followers","newfollowers","posts",
-                                        "likes","comments");
+                                        "likes","comments","views");
                     while($row = mysql_fetch_array($result)) {
                         $igrow = array();
                         foreach($igmetrics as $metric){
