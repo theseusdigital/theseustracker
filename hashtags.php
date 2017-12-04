@@ -205,12 +205,12 @@ $(document).ready(function(){
 
     $("#datepicker").datepicker({
         dateFormat:'yy-mm-dd',
-        minDate: -60, 
+        /*minDate: -60,*/ 
         maxDate: 0
     });
     $("#datepicker2").datepicker({
         dateFormat:'yy-mm-dd',
-        minDate: -60, 
+        /*minDate: -60,*/ 
         maxDate: 0
     });
 
