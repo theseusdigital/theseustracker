@@ -101,6 +101,7 @@ session_start();
                                         "New Followers"=>"newfollowers",
                                         "Posts"=>"posts",
                                         "Likes"=>"likes",
+                                        "Views"=>"views",
                                         "Comments"=>"comments");
         foreach($metric_map as $platform => $metrics){
             $metric_map[$platform]["metrics"] = array_keys($metrics);
